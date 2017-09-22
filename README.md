@@ -11,10 +11,18 @@ Catches all Exceptions except django.http.Http404 and rest_framework.exceptions.
 4. `python manage.py migrate`
 
 
+
 # Use
 
 ## Where to find logs?
 You have an overview over all errors in the django admin site, and logger provides a view in its subpath `/list` with overview over all errors.
+You can define if you see all errors or only one (if possible, unresolved) error per group, by putting this into your settings:
+```
+LOGGER = {
+    "one_per_group": True
+}
+```
+Not sure what the default behaviour is.
 
 ![preview](preview.png?raw=true "Title")
 

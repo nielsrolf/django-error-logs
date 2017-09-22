@@ -9,7 +9,7 @@ class ErrorGroup(models.Model):
 	method = models.CharField(max_length=10)
 	content_type = models.CharField(max_length=30)
 
-	def __str__(self): return self.method + " " + self.endpoint
+	def __str__(self): return self.method + " " + self.endpoint + self.__dict__.get("extra_info", "") # extra info can be appended to this objects
 
 	@staticmethod
 	def get(endpoint, method, content_type):
