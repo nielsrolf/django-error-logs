@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+	<head>
+		<meta charset="utf-8">
+		<title>Error Logs</title>
+		<style>
+			body { padding: 50px; font: courier, sans-serif;}
+			a { text-decoration:none; }
+			td.success { background-color: green; width: 10px; }
+			td.fails { background-color: red; width: 10px; }
+			td.original { background-color: yellow; width: 600px;}
+			td.now { font-style: italic; width: 600px%; }
+		</style>
+	</head>
+
+	<body>
+		<h1>Error Overview</h1>
+		<table>
+		{% for entry in output %}
+			<tr class="entry">
+			{% if entry.success %}<td class="success"></td>{% else %}<td class="fails"></td>{% endif %}
+				<td><b>{{ entry.group }}</b><br /></td>
+				<td><table>
+					<tr class="message"><td class="original">{{ entry.error }}</td></tr>
+					<tr class="message"><td class="now">{{ entry.msg }} </td></tr>
+				</table></td>
+			</tr>
+		{% endfor %}
+		</table>
+	</body>
+</html>
