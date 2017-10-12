@@ -4,6 +4,12 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.contrib.auth.models import User
 
+try:
+	with open("version.txt", 'rb') as vfile:
+		version = vfile.read()
+except:
+	version = "unknown"
+
 class ErrorGroup(models.Model):
 	endpoint = models.CharField(max_length=100)
 	method = models.CharField(max_length=10)
@@ -30,11 +36,12 @@ class Error(models.Model):
 	user = models.ForeignKey(User, null=True)
 	body = JSONField(null=True)
 	error_msg = models.TextField(default="")
+	version = models.CharField(max_length=30, default="unknown")
 
 	def __str__(self): return self.error_msg
 
-def new_error(endpoint, method, content_type, auth, user, body, error_msg):
+def new_error(endpoint, method, content_type, auth, user, body, error_msg, version=version):
 	group = ErrorGroup.get(endpoint=endpoint, method=method, content_type=content_type)
-	error = Error.objects.create(group=group, auth=auth, user=user, body=body, error_msg=error_msg)
+	error = Error.objects.create(group=group, auth=auth, user=user, body=body, error_msg=error_msg, version=version)
 	return error
 

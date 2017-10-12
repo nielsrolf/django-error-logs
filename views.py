@@ -10,5 +10,5 @@ def all_errors(request):
 	output = []
 	for error in errors:
 		success, msg = core.run_error(error)()
-		output.append({"error":str(error), "success":success, "msg":str(msg), "group": str(error.group), "id": error.id})
+		output.append({"error":str(error), "success":success, "msg":str(msg), "group": str(error.group), "id": error.id, "version": error.version})
 	return render(request, 'logger/list.html', {"output":output})
